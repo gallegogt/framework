@@ -503,12 +503,19 @@ function main() {
 		dir = arg;
 		break;
 	}
-
-	if (!fs.existsSync(dir)) {
-		console.log('total.js: error / directory not exists');
-		return;
-	}
-
+    try
+    {
+        if(!fs.lstatSync(dir).isDirectory())
+        {
+            console.log('total.js: error / directory not exists');
+            return;
+        }
+    }
+    catch(err)
+    {
+        console.log('total.js: error / directory not exists');
+        return;
+    }
 	var files = fs.readdirSync(dir);
 	if (files.length > 0) {
 
